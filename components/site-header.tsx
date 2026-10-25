@@ -25,7 +25,10 @@ const navLinks = [
 ];
 
 function isAuthenticatedLinkActive(href: string, pathname: string) {
-  return href === "/" ? pathname === "/" : pathname.startsWith(href);
+  if (href === "/") {
+    return pathname === "/";
+  }
+  return pathname.startsWith(href);
 }
 
 export function SiteHeader() {
