@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Menu, UserRound } from "lucide-react"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Menu, UserRound } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetClose,
@@ -13,23 +13,23 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
-import { cn } from "cn"
+} from "@/components/ui/sheet";
+import { cn } from "cn";
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Destinations", href: "/destinations" },
+  { label: "Destinations", href: "/destination" },
   { label: "Add Destination", href: "/add-destination" },
   { label: "My Bookings", href: "/bookings" },
   { label: "Admin", href: "/admin" },
-]
+];
 
 function isAuthenticatedLinkActive(href: string, pathname: string) {
-  return href === "/" ? pathname === "/" : pathname.startsWith(href)
+  return href === "/" ? pathname === "/" : pathname.startsWith(href);
 }
 
 export function SiteHeader() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
@@ -56,7 +56,7 @@ export function SiteHeader() {
                       "rounded-lg px-3 py-2.5 text-sm font-medium transition-colors hover:bg-muted",
                       isAuthenticatedLinkActive(link.href, pathname)
                         ? "text-primary underline underline-offset-4"
-                        : "text-foreground"
+                        : "text-foreground",
                     )}
                   >
                     {link.label}
@@ -65,14 +65,14 @@ export function SiteHeader() {
               </nav>
               <SheetFooter className="border-t">
                 <SheetClose
-                  render={
-                    <Button variant="outline" className="w-full" />
-                  }
+                  render={<Button variant="outline" className="w-full" />}
                 >
                   <UserRound data-icon="inline-start" />
                   Profile
                 </SheetClose>
-                <SheetClose render={<Button variant="outline" className="w-full" />}>
+                <SheetClose
+                  render={<Button variant="outline" className="w-full" />}
+                >
                   Login
                 </SheetClose>
                 <SheetClose render={<Button className="w-full" />}>
@@ -96,7 +96,7 @@ export function SiteHeader() {
                 "rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:text-foreground",
                 isAuthenticatedLinkActive(link.href, pathname)
                   ? "text-primary underline underline-offset-4"
-                  : "text-foreground"
+                  : "text-foreground",
               )}
             >
               {link.label}
@@ -125,10 +125,14 @@ export function SiteHeader() {
         </div>
 
         {/* Mobile: compact sign up */}
-        <Button size="sm" className="lg:hidden" render={<Link href="/signup" />}>
+        <Button
+          size="sm"
+          className="lg:hidden"
+          render={<Link href="/signup" />}
+        >
           Sign Up
         </Button>
       </div>
     </header>
-  )
+  );
 }

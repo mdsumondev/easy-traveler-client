@@ -32,3 +32,11 @@ easy-traveler: Next.js 16.4.3 App Router app (React 19.3), single package, no `s
 - shadcn/ui uses the `base-nova` style (`components.json`): generated components under `@/components/ui` mount primitives from `@base-ui/react/*` (Base UI, **not Radix**). Follow `components/ui/button.tsx` and add new components via the shadcn CLI, not by hand-copied code from shadcn docs.
 - `dark` is a class-based custom variant (`@custom-variant` in `globals.css`), not `prefers-color-scheme`.
 - `cn` comes from the `cn` npm package (re-exported via `lib/utils`), not a local clsx + tailwind-merge helper.
+- Base UI composes with `render` instead of Radix's `asChild`: e.g. `<Button render={<Link href="/" />}>`. Follow this pattern (see `site-header.tsx`).
+- Icons: lucide-react, placed inside buttons with `data-icon="inline-start"` so size/gap come from `data-icon` variants in `button.tsx`.
+
+## Backend API (separate server, not in this repo)
+
+- Client fetches hardcode `http://localhost:5000` — an external Express backend that must be running for `/destination` and `/add-destination` to work. Endpoints: `GET /all-destination`, `POST /add-destination`.
+- Response shape: `DestinationType` in `app/type/destinationType.ts` (MongoDB `_id` fields). Note: the form posts `duration`, which the type does not include — reconcile when touching either side.
+- `app/destination/page.tsx` does an uncached `fetch` at request time with no `<Suspense>`, so it fails both the Cache Components build rule and when the backend is down.
